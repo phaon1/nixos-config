@@ -99,18 +99,22 @@
   home-manager.users.noah = { pkgs, ... }: {
     home.packages = [];
     programs.zsh = {
-     enable = true;
-     oh-my-zsh.enable = true;
-     oh-my-zsh.theme = "agnoster";
-     zplug = {
       enable = true;
-      plugins = [
-       { name = "zsh-users/zsh-autosuggestions"; }
-       { name = "zsh-users/zsh-syntax-highlighting"; }
-      ];    
+        oh-my-zsh = {
+          enable = true;
+          theme = "agnoster";
+     };
+
+     zplug = {
+       enable = true;
+         plugins = [
+           { name = "zsh-users/zsh-autosuggestions"; }
+           { name = "zsh-users/zsh-syntax-highlighting"; }
+         ];    
      }; 
     };
-  home.stateVersion = "23.05";
+    
+    home.stateVersion = "23.05";
   };
 
   # Enable zsh
