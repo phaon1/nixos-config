@@ -4,11 +4,16 @@
 
 { config, pkgs, ... }:
 
+let
+  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       <home-manager/nixos>
+      aagl-gtk-on-nix.module
     ];
 
   # Bootloader.
@@ -137,27 +142,15 @@
   # Enable flakes and nix command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  #Enable aagl
+  programs.anime-game-launcher.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
-
-  # Enable aagl
-  let
-   aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
-  in
-  {
-   imports = [
-    aagl-gtk-on-nix.module
-   ];
-
-   programs.anime-game-launcher.enable = true;
-   programs.anime-borb-launcher.enable = true;
-   programs.honkers-railway-launcher.enable = true;
-   programs.honkers-launcher.enable = true;
-  }
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
