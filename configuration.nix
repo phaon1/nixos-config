@@ -91,10 +91,10 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
-      kate
-      thunderbird
       discord
       spotify
+      podman
+      distrobox
       lutris
       git
       protonup-qt
@@ -126,6 +126,12 @@ in
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
+  # Enable dconf
+  programs.dconf.enable = true;
+
+  #Enable virtualisation
+  virtualisation.libvirtd.enable = true;
+
   # Enable nur
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
@@ -135,6 +141,10 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  #Enable flatpak
+  services.flatpak.enable = true;
+
 
   # Enable steam
   programs.steam.enable = true;
@@ -148,8 +158,9 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+   virt-manager
+   pkgs.libsForQt5.discover
+   pkgs.libsForQt5.kate
   ];
 
   # Enable the OpenSSH daemon.
