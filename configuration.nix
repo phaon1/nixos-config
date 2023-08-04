@@ -98,6 +98,7 @@ in
       lutris
       git
       protonup-qt
+      wine
     ];
   };
 
