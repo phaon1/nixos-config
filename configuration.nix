@@ -95,7 +95,6 @@ in
       spotify
       podman
       distrobox
-      lutris
       git
       protonup-qt
       wine
@@ -146,10 +145,6 @@ in
   #Enable flatpak
   services.flatpak.enable = true;
 
-
-  # Enable steam
-  programs.steam.enable = true;
-
   # Enable flakes and nix command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -160,7 +155,6 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
    virt-manager
-   pkgs.libsForQt5.discover
    pkgs.libsForQt5.kate
   ];
 
