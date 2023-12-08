@@ -16,7 +16,7 @@ in
 boot.loader.systemd-boot.enable = true;
 boot.loader.efi.canTouchEfiVariables = true;
 
-networking.hostName = "nixos"; # Define your hostname.
+networking.hostName = "adachi"; # Define your hostname.
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
 # Enable networking
@@ -40,10 +40,9 @@ i18n.extraLocaleSettings = {
   LC_TIME = "en_GB.UTF-8";
 };
 
-# Enable the X11 windowing system.
-services.xserver.enable = true;
 
 # Enable the KDE Plasma Desktop Environment.
+services.xserver.enable = true;
 services.xserver.displayManager.sddm.enable = true;
 services.xserver.desktopManager.plasma5.enable = true;
 
@@ -52,9 +51,6 @@ services.xserver = {
   layout = "us";
   xkbVariant = "";
 };
-
-# Enable CUPS to print documents.
-services.printing.enable = true;
 
 # Enable sound with pipewire.
 sound.enable = true;
@@ -70,21 +66,17 @@ services.pipewire = {
 # Define a user account. Don't forget to set a password with ‘passwd’.
 users.users.noah = {
   isNormalUser = true;
-  description = "noah";
-  extraGroups = [ "networkmanager" "wheel" ];
+  description = "phaon";
+  extraGroups = [ "networkmanager" "wheel" "libvirt" ];
   packages = with pkgs; [
     firefox
     discord
     spotify
-    podman
-    distrobox
-    git
     protonup-qt
-    wine
   ];
 };
 
-home-manager.users.noah = { pkgs, ... }: {
+home-manager.users.phaon = { pkgs, ... }: {
   home.packages = [];
   programs.zsh = {
     enable = true;
@@ -102,7 +94,7 @@ home-manager.users.noah = { pkgs, ... }: {
     }; 
   };
     
-  home.stateVersion = "23.05";
+  home.stateVersion = "23.11";
 };
 
 # Enable zsh
@@ -114,6 +106,8 @@ programs.dconf.enable = true;
 
 #Enable virtualisation
 virtualisation.libvirtd.enable = true;
+programs.virt-manager.enable = true;
+virtualisation.podman.enable = true;
 
 # Enable nur
 nixpkgs.config.packageOverrides = pkgs: {
@@ -127,6 +121,7 @@ nixpkgs.config.allowUnfree = true;
 
 #Enable flatpak
 services.flatpak.enable = true;
+fonts.fontDir.enable = true;
 
 # Enable flakes and nix command
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -135,10 +130,13 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 programs.anime-game-launcher.enable = true;
 
 environment.systemPackages = with pkgs; [
-  virt-manager
   pkgs.libsForQt5.kate
+  pkgs.distrobox
+  pkgs.wine
+  pkgs.git
+  pkgs.firefox
 ];
 
-system.stateVersion = "23.05";
+system.stateVersion = "23.15";
 
 }
